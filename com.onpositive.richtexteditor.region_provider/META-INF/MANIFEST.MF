@@ -1,0 +1,17 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Region Editor Provider Plug-in
+Bundle-SymbolicName: com.onpositive.richtexteditor.region_provider;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Vendor: ONPOSITIVE
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.equinox.common,
+ org.eclipse.core.resources,
+ org.eclipse.ui.ide,
+ org.eclipse.ui.editors,
+ org.eclipse.core.runtime,
+ com.onpositive.richtexteditor;bundle-version="1.5.0",
+ com.onpositive.richtext.model;bundle-version="1.0.0"
+Export-Package: com.onpositive.richtexteditor.region_provider
+Import-Package: org.osgi.framework
+Bundle-Activator: com.onpositive.richtexteditor.region_provider.Activator
