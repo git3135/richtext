@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Model
+Bundle-SymbolicName: com.onpositive.richtext.wikitext.model
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ONPOSITIVE
+Require-Bundle: com.onpositive.richtext.model;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
+Export-Package: com.onpositive.richtexteditor.wikitext,
+ com.onpositive.richtexteditor.wikitext.io,
+ com.onpositive.richtexteditor.wikitext.parser,
+ com.onpositive.richtexteditor.wikitext.partitions,
+ com.onpositive.richtexteditor.wikitext.regions
