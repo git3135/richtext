@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Model
+Bundle-SymbolicName: com.onpositive.richtext.model
+Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: ONPOSITIVE
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Export-Package: com.onpositive.richtext.model,
+ com.onpositive.richtext.model.meta,
+ com.onpositive.richtexteditor.io,
+ com.onpositive.richtexteditor.io.html,
+ com.onpositive.richtexteditor.io.html_scaner,
+ com.onpositive.richtexteditor.model,
+ com.onpositive.richtexteditor.model.changes
