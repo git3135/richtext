@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Xml Plug-in
+Bundle-SymbolicName: com.onpositive.richtexteditor.xml;singleton:=true
+Bundle-Version: 1.0.0
+Bundle-Activator: com.onpositive.richtexteditor.xml.Activator
+Bundle-Vendor: ONPOSITIVE
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime,
+ com.onpositive.richtexteditor;bundle-version="1.0.0",
+ com.onpositive.semantic.model;bundle-version="1.0.0",
+ com.onpositive.semantic.ui;bundle-version="1.0.0",
+ com.onpositive.semantic.ui.xml;bundle-version="1.0.0",
+ com.onpositive.commons.platform;bundle-version="1.0.0",
+ org.eclipse.jface.text,
+ org.eclipse.ui.forms,
+ com.onpositive.richtext.model;bundle-version="1.0.0"
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ActivationPolicy: lazy
+Import-Package: com.onpositive.semantic.ui.text,
+ com.onpositive.semantic.ui.text.spelling,
+ org.eclipse.jface.text,
+ org.eclipse.ui.editors.text,
+ org.eclipse.ui.texteditor,
+ org.eclipse.ui.texteditor.spelling
+Export-Package: com.onpositive.richtexteditor.xml
