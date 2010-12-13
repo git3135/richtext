@@ -1,0 +1,11 @@
+Currently we have following major goals for 1.2 version of component: 
+
+ * Add support for projection and folding
+ * Support nesting of lists
+ * Support styled regions. - Regions that are highlighted in the viewer and styled automatically. For example snippet of Java code
+ * Implement importers/exporters for one or two popular Wiki markup languages.
+ * Polish API, and improve widget extensibility.
+ * Add support for basic tables.
+
+We are planning to release 1.2 version of rich text viewer at the early start of 2009. 
+

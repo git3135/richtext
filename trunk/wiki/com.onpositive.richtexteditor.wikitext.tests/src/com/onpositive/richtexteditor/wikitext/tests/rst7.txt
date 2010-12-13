@@ -1,0 +1,4 @@
+
+ 1. Moving last column on GTK hides other columns
+
+ 2. Setting sort column when table is not completely initalized takes no effect.

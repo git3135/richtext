@@ -1,0 +1,14 @@
+ = When Rich text editor widget should be used =
+
+Rich text editor widget should be used when you need component which conforms to two or more of the following conditions:
+
+ * Component should allow user to create simple rich content, full HTML authoring capabilities are not required.
+ * Component should allow configuring quick fixes, content assist, auto indent, spell checking and other stuff from JFace text editing infrastructure
+ * Component should be able to import/export text from/to HTML or other formats (Wikitext, Textile, e.t.c) 
+ * Component should support automatic styling of typed text.
+
+When full HTML authoring capabilities are required in Eclipse RCP application one of the following solutions could be used:
+
+ * [http://sourceforge.net/projects/swt-composer/ SWT HTML Editor Widget] from Max Stepanov 
+ * [http://dev.eclipse.org/viewcvs/index.cgi/~checkout~/org.eclipse.swt.snippets/src/org/eclipse/swt/snippets/Snippet267.java Use Mozilla browser in design mode]
+ * [http://www.eclipse.org/epf/ Use Javascript based Rich Text editor from EPF Project]

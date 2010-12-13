@@ -1,0 +1,9 @@
+ Example:
+ {{{
+ {{{
+ #!rst
+ This is a reference to |a ticket|
+
+ .. |a ticket| trac:: #42
+ }}}
+ }}}

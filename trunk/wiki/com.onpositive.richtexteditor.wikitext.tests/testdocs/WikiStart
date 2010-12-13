@@ -1,0 +1,49 @@
+= Rich Text Editor Project =
+Currently the only way to get rich text editing capabilities inside Eclipse RCP application is to use native browser widget. This is powerful but not very flexible solution. 
+
+The goal of Rich Text Editor project is to create WYSIWYG Markup editor, which will be based on !StyledText widget and will allow basic HTML authoring, as well as will support most of features from jface text editing infrastructure. 
+
+'''Project Links''': [wiki:Manuals Project Documentation], [wiki:Roadmap Highlevel Roadmap] , [wiki:Downloads], [wiki:FAQ Frequently Asked Questions(FAQ)], [http://onpositive.com/richtext/chrome/site/screen/screen.html Screencast], [wiki:Contacts] 
+
+[[Image(screenShot.jpg)]] 
+
+'''Project Requirements:''' 
+
+ The project shall provide infrastructure which will allow viewing and modification of rich text content.
+
+ * The project shall provide WYSIWYG markup editor which will allow basic html authoring
+
+ * The project shall provide a common framework for implementing parsers/serializers which will allow easy interfacing between rich editor document model and different markup formats
+
+ * The project WYSIWYG markup editor should support content assist, spell checking, auto indent strategy, pair matching
+
+'''Current project state:''' 
+
+Currently project is on alpha stage. Current stable release version is 1.0. To the moment it supports the following features: 
+
+ * Bold/Italic/Strikethrough/Underline text styles
+ * Custom Fonts, Foreground and background colors for text region.
+ * Numbered and unnumbered lists
+ * Hyperlinks 
+ * Images
+ * Horizontal lines
+ * Copy/Paste HTML/Text 
+ * Import/Export to and from HTML format
+ * Undo/Redo
+ * Adding automatic styling strategies.
+ * Configuring viewer using standard source viewer configuration facilities.
+
+'''License:''' 
+
+Project is licensed under [http://www.eclipse.org/legal/epl-v10.html Eclipse Public License v1.0] 
+
+'''Repository:''' 
+
+Currently project is located under svn://onpositive.com/svnroot/projects/semantic-faces/incubator/ 
+
+Credentials: 
+
+User: guest 
+
+Password: 12345 
+
