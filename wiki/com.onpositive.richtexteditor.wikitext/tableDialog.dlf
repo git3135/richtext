@@ -1,0 +1,8 @@
+<composite-editor xmlns="http://jetface.org/JetFace1.0/" >
+<model>
+	<binding id="x" minCardinality="1" maxCardinality="30"/>
+	<binding id="y" minCardinality="1" maxCardinality="30"/>
+</model>
+<spinner bindTo="x" caption="Number of columns" ></spinner>
+<spinner bindTo="y" caption="Number of rows" ></spinner>
+</composite-editor>
