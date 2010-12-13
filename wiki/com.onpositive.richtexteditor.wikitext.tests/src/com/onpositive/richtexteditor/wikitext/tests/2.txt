@@ -1,0 +1,6 @@
+== Downloads ==
+You may use our [http://onpositive.com/semantic/chrome/site/site.zip Zipped project update site] for off line installation or install '''Semantic UI framework''' from 
+
+our update site: '''http://onpositive.com/richtext/chrome/site/semantic/'''  
+
+[wiki:WikiStart Home]

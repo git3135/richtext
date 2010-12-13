@@ -1,0 +1,34 @@
+ = Viewer Customization =
+
+In addition to feature supported by !SourceViewer rich text viewer supports following forms of customization to the moment:
+
+  === Customization of HTML importing/exporting: ===
+
+  HTML import/export may be customized by providing corresponding instances of ''IHTMLSerializerFactory'' and ''IHTMLLoaderFactory'' to the viewer's ''!LayerManager''.  
+ This may be done by calling it is ''setLoaderFactory'' and ''setSerializerFactory'' methods. In the ''configureLayerManager(!LayerManager)'' method of 
+RichViewerControlConfiguration class
+
+ === Customization of styles and colors: ===
+
+
+ === Customizing action bar: ===
+ 
+ If you do not want to show built in actionbar you may disable it  using ''setCreateToolbar(boolean)'' method in !RichTextViewerControlConfiguration class. If you would like to create custom action bar
+ widget you should override ''createToolbarManager'' method of ''!RichTextViewer'' class.
+
+ === Controlling which actions should be added to action bar and popup menu: ===
+
+ You may control which actions should be added to action bar and popup menu by overriding ''initActions()'' and ''fillPopupMenu(!MenuManager menuManager)'' methods of ''!RichTextViewer'' class. You 
+ also may install custom ''!ActionFactory'' instance by overriding ''createActionFactory()'' method.
+
+ === Adding Auto-styling strategies: ===
+ 
+ Unlike Auto-edit strategy , Auto-Styling strategies are responsible for automatic customization of style attributes of document, you may add auto styling strategies using method add 
+ ''addAutoStylingStrategy(IRichDocumentAutoStylingStrategy str)'' of !LayerManager class in the body of ''configureLayerManager(!LayerManager)'' method   of !RichViewerControlConfiguration class
+
+
+ === Adding custom partition kind: ===
+
+ 
+
+

@@ -1,0 +1,27 @@
+'''Q:'''Where can I get '''`RichTextViewer`''' plugin? 
+
+'''A:'''On our [wiki:Downloads] page. 
+
+'''Q:'''How to set HTML string content to 'RichTextViewer'? 
+
+'''A:''' '''`RichtextViewer`''' is designed as input data format independent product, so HTML is only one of formats we plan to support in future(for example, now we are working at wiki text support). Because of this, if making html editing tool, you should do a little work to make a method for setting HTML string content. At first, you must create special '''`ISimpleRichTextModel`''' instance, which is some abstraction from real document, and then - to set this model to '''`LayerManager`'''. One of the means to do this is to create your own descendant of '''`RichTextViewer`''' class and to make method like: 
+{{{
+#!java
+public void setHTML(String html)
+{
+	DefaultHTMLLoader loader = new DefaultHTMLLoader(getLayerManager());
+	ISimpleRichTextModel model = loader.parse(html);
+	changeDocument(model);
+}
+}}}
+Q: '''H'''ow to get contents of an editor in HTML format? 
+
+A:''' Y'''ou can use methods Ri'''`chTextViewer.getContentsHTML() o`'''r La'''`yerManager.getContentsHTML() f`'''or this. 
+
+Q:''' H'''ow to configure Toolbar actions, disable them or add my own? What basic actions/features is currently supported? 
+
+A:''' I'''ts basically described in [wiki:Customizaton] 
+
+>dawdaw
+>>dawdwda
+>>>dawdwaawd

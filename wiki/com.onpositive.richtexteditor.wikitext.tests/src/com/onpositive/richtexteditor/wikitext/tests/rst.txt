@@ -1,0 +1,13 @@
+Will result in the below.
+
+{{{
+#!rst
+
+.. code-block:: python
+
+ class Test:
+
+    def TestFunction(self):
+        pass
+
+}}}
