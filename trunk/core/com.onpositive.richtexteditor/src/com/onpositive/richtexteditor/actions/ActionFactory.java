@@ -1298,31 +1298,31 @@ public class ActionFactory implements ISelectionChangedListener,
 
 	public ArrayList<IContributionItem> createActionsList() {
 		initContainers();
-		addActionToList(new ControlContribution("Zoom") {
-
-			
-			protected Control createControl(Composite parent) {
-				final CCombo cmd = new CCombo(parent, SWT.NONE);
-				final float[] zooms = new float[] { 0.5f, 0.75f, 1f, 2f, 3f };
-				cmd.setItems(new String[] { "50%", "75%", "100%", "200%",
-						"300%" });
-				cmd.select(2);
-				cmd.addSelectionListener(new SelectionListener() {
-
-					public void widgetDefaultSelected(SelectionEvent e) {
-
-					}
-
-					public void widgetSelected(SelectionEvent e) {
-						int selectionIndex = cmd.getSelectionIndex();
-						manager.setScale(zooms[selectionIndex]);
-					}
-
-				});
-				return cmd;
-			}
-
-		});
+//		addActionToList(new ControlContribution("Zoom") {
+//
+//			
+//			protected Control createControl(Composite parent) {
+//				final CCombo cmd = new CCombo(parent, SWT.NONE);
+//				final float[] zooms = new float[] { 0.5f, 0.75f, 1f, 2f, 3f };
+//				cmd.setItems(new String[] { "50%", "75%", "100%", "200%",
+//						"300%" });
+//				cmd.select(2);
+//				cmd.addSelectionListener(new SelectionListener() {
+//
+//					public void widgetDefaultSelected(SelectionEvent e) {
+//
+//					}
+//
+//					public void widgetSelected(SelectionEvent e) {
+//						int selectionIndex = cmd.getSelectionIndex();
+//						manager.setScale(zooms[selectionIndex]);
+//					}
+//
+//				});
+//				return cmd;
+//			}
+//
+//		});
 		addActionToList(new ActionContributionItem(this.getBoldAction()));
 
 		addActionToList(new ActionContributionItem(this.getItalicAction()));
@@ -1334,7 +1334,7 @@ public class ActionFactory implements ISelectionChangedListener,
 				.getStrikeThroughAction()));
 
 		addActionToList(new Separator());
-		// addActionToList(this.getStyleContributionItem());
+	    addActionToList(this.getStyleContributionItem());
 		addActionToList(new Separator());
 		addActionToList(new ActionContributionItem(this.getAlignLeftAction()));
 		addActionToList(new ActionContributionItem(this.getAlignRightAction()));
