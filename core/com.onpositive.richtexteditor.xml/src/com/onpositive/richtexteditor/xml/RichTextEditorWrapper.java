@@ -156,7 +156,6 @@ public class RichTextEditorWrapper extends AbstractEditor<Control> implements
 			 * com.onpositive.richtexteditor.viewer.RichTextViewer#initActions()
 			 */
 
-			@SuppressWarnings("unchecked")
 			protected void initActions() {
 
 				if (getConfiguration().isCreateToolbar())

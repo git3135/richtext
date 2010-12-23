@@ -294,7 +294,6 @@ public class ExtendedRenderer extends StyledTextRenderer {
 	protected void drawBullet(Bullet bullet, GC gc, int paintX, int paintY, int index, int lineAscent, int lineDescent, int lineIndex)
 	{
 		paintX -= ExtendedStyledText.BULLET_SPACE;
-		
 		super.drawBullet(bullet, gc, paintX, paintY, index-1, lineAscent, lineDescent);
 	}
 
