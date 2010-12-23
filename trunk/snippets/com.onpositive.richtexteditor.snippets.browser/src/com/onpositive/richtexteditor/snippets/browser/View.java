@@ -67,8 +67,8 @@ public class View extends ViewPart {
 		richTextViewer = new RichTextViewer(parent, SWT.BORDER);
 		GridData gridData = new GridData(GridData.FILL_BOTH);
 		gridData.horizontalSpan = 1;
-		gridData.minimumWidth = 200;
-		gridData.minimumHeight = 400;
+		gridData.minimumWidth = 400;
+		gridData.minimumHeight = 600;
 		richTextViewer.getControl().setLayoutData(gridData);		
 		RichViewerUndoManager undoManager = new RichViewerUndoManager(UNDO_CACHE_SIZE);
 		undoManager.connect(richTextViewer);
@@ -92,7 +92,7 @@ public class View extends ViewPart {
 				{
 					if (!updateScheduled)
 					{
-						if (lastUpdateTime == -1 || lastChangeTime - lastUpdateTime < MIN_UPDATE_INTERVAL)
+						if (lastUpdateTime == -1 || lastChangeTime - lastUpdateTime > MIN_UPDATE_INTERVAL)
 						{
 							String s =richTextViewer.getLayerManager().getSerializedString();
 							browser.setText(s);
