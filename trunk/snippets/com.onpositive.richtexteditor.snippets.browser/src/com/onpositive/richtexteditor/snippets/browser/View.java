@@ -40,7 +40,7 @@ public class View extends ViewPart {
 		public void run()
 		{
 			long current = System.currentTimeMillis();
-			if (current - lastChangeTime < 300)
+			if (current - lastChangeTime < 1000)
 				Display.getDefault().timerExec(MIN_UPDATE_INTERVAL, this);
 			else
 			{
