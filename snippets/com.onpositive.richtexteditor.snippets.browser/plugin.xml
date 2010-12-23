@@ -53,5 +53,31 @@
          </menu>
       </menuContribution>
    </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="com.onpositive.richtexteditor.snippets.browser.undo"
+            name="Undo">
+      </command>
+      <command
+            id="com.onpositive.richtexteditor.snippets.browser.redo"
+            name="Redo">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="com.onpositive.richtexteditor.snippets.browser.undo"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+Z">
+      </key>
+      <key
+            commandId="com.onpositive.richtexteditor.snippets.browser.redo"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="M1+Y">
+      </key>
+   </extension>
 
 </plugin>
