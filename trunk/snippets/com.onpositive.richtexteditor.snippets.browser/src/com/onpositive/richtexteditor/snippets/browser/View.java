@@ -6,6 +6,10 @@ import org.eclipse.jface.commands.ActionHandler;
 import org.eclipse.jface.text.TextViewer;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.custom.ExtendedRenderer;
+import org.eclipse.swt.custom.ExtendedStyledText;
+import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
@@ -64,7 +68,19 @@ public class View extends ViewPart {
 	public void createPartControl(Composite parent) {
 		
 		parent.setLayout(new GridLayout(2,true));
-		richTextViewer = new RichTextViewer(parent, SWT.BORDER);
+		richTextViewer = new RichTextViewer(parent, SWT.BORDER)
+		{
+			protected StyledText createTextWidget(Composite parent, int styles)
+			{
+				final ExtendedStyledText textWidget = (ExtendedStyledText) super.createTextWidget(parent, styles | SWT.WRAP);
+				textWidget.setRenderer(new ExtendedRenderer(Display.getDefault(),textWidget));
+				// textWidget.setPagingEnabled(false);
+				textWidget.setPageWidth(-1);
+				textWidget.setAllowParagraphSpacing(false);
+				textWidget.setPageInformation(null);
+				return textWidget;
+			}
+		};
 		GridData gridData = new GridData(GridData.FILL_BOTH);
 		gridData.horizontalSpan = 1;
 		gridData.minimumWidth = 400;
