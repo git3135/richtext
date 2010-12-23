@@ -27,12 +27,39 @@ import com.onpositive.richtexteditor.viewer.RichTextViewer;
 import com.onpositive.richtexteditor.viewer.undo.RichViewerUndoManager;
 
 public class View extends ViewPart {
+	private final class BrowserUpdater implements Runnable
+	{
+		private final Browser browser;
+
+		private BrowserUpdater(Browser browser)
+		{
+			this.browser = browser;
+		}
+
+		@Override
+		public void run()
+		{
+			long current = System.currentTimeMillis();
+			if (current - lastChangeTime < 300)
+				Display.getDefault().timerExec(MIN_UPDATE_INTERVAL, this);
+			else
+			{
+				String s = richTextViewer.getLayerManager().getSerializedString();
+				browser.setText(s);
+				updateScheduled = false;
+				lastUpdateTime = current;
+			}
+			
+		}
+	}
+
 	private static final int UNDO_CACHE_SIZE = 100;
 	public static final String ID = "com.onpositive.richtexteditor.snippets.browser.view";
 	private static final int MIN_UPDATE_INTERVAL = 2000; //2 sec
 
 	private RichTextViewer richTextViewer;
 	private long lastUpdateTime = -1;
+	private long lastChangeTime = -1;
 	private Boolean updateScheduled = false;
 	
 
@@ -67,32 +94,20 @@ public class View extends ViewPart {
 
 			public void documentChanged(DocumentEvent event,
 					RichDocumentChange change) {
-				long current = System.currentTimeMillis();
+				lastChangeTime = System.currentTimeMillis();
 				synchronized (updateScheduled)
 				{
 					if (!updateScheduled)
 					{
-						if (lastUpdateTime == -1 || current - lastUpdateTime < MIN_UPDATE_INTERVAL)
+						if (lastUpdateTime == -1 || lastChangeTime - lastUpdateTime < MIN_UPDATE_INTERVAL)
 						{
 							String s =richTextViewer.getLayerManager().getSerializedString();
 							browser.setText(s);
-							lastUpdateTime = current;
+							lastUpdateTime = lastChangeTime;
 						}
 						else
 						{
-							Display.getDefault().timerExec(MIN_UPDATE_INTERVAL, new Runnable()
-							{
-								
-								@Override
-								public void run()
-								{
-									String s = richTextViewer.getLayerManager().getSerializedString();
-									browser.setText(s);
-									updateScheduled = false;
-									lastUpdateTime = System.currentTimeMillis();
-								}
-								
-							});
+							Display.getDefault().timerExec(MIN_UPDATE_INTERVAL, new BrowserUpdater(browser));
 							updateScheduled = true;
 						}
 					}
