@@ -1246,7 +1246,7 @@ public class ExtendedStyledText extends StyledText implements
 				 * UIUtils.setFocus(handle);
 				 */
 				ExtendedStyledText extendedStyledText = ExtendedStyledText.this;
-				if ((extendedStyledText.getStyle() & SWT.NO_FOCUS) == 0)
+				if (!extendedStyledText.isDisposed() && (extendedStyledText.getStyle() & SWT.NO_FOCUS) == 0)
 					UIUtils.setFocus(extendedStyledText);
 			}
 		});
