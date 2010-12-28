@@ -49,9 +49,6 @@ public class ExtendedRenderer extends StyledTextRenderer {
 
 	public ExtendedRenderer(Device device, StyledText styledText) {
 		super(device, styledText);
-		if (styledText instanceof ExtendedStyledText) {
-			;
-		}
 		setContent(styledText.getContent());
 	}
 

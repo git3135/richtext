@@ -1,20 +1,21 @@
 package org.eclipse.swt.graphics;
 
+import org.eclipse.swt.internal.gtk.OS;
 import org.eclipse.swt.widgets.Display;
 
 public class TextLayoutOps {
 
 	public static void setLineY(TextLayout layout, int line, int y) {
-		layout.lineY[line] = y;
+//		layout.lineY[line] = y;
 	}
 
 	public static void shiftLines(TextLayout layout, int line, int delta) {
-		if (layout.lineY[layout.lineY.length - 1] == 1) {
-			layout.lineY[layout.lineY.length - 1] = 0;
-		}
-		for (int a = line + 1; a < layout.lineY.length; a++) {
-			layout.lineY[a] += delta;
-		}
+//		if (layout.lineY[layout.lineY.length - 1] == 1) {
+//			layout.lineY[layout.lineY.length - 1] = 0;
+//		}
+//		for (int a = line + 1; a < layout.lineY.length; a++) {
+//			layout.lineY[a] += delta;
+//		}
 	}
 
 	public static boolean needsSpacing(TextLayout layout,
@@ -23,41 +24,23 @@ public class TextLayoutOps {
 	}
 
 	public static int getLineY(TextLayout layout, int line) {
-		return layout.lineY[line];
+		int y = 0;
+		for (int a = 0; a < line; a++) {
+			y += OS.pango_layout_get_line(layout.layout, a);
+		}
+		return y;
 	}
 
 	public static int getHeight(TextLayout t) {
-		return t.lineY[t.lineY.length - 1];
+		return t.getBounds().height;
 	}
 
 	public static int getLineHeight(TextLayout textLayout, int a) {
-		if (a < textLayout.lineY.length - 1) {
-			if (a == 0) {
-				return textLayout.lineY[1];
-			} else {
-				return (textLayout.lineY[a + 1] - textLayout.lineY[a]);
-			}
-		}
-		if (textLayout.lineY.length == 1) {
-			return textLayout.lineY[a];
-		}
-		return 1;
-
-		/*
-		 * if (a > 0) { return textLayout.lineY[a] - textLayout.lineY[a - 1]; }
-		 * return textLayout.lineY[a];
-		 */
+		return OS.pango_layout_get_line(textLayout.layout, a);
 	}
 
 	public static void setFirstLineSpacing(TextLayout textLayout,
 			TextLayout localLayout, int paragraphSpacing) {
-
-		if (textLayout.lineY[textLayout.lineY.length - 1] == 1) {
-			textLayout.lineY[textLayout.lineY.length - 1] = 0;
-		}
-		for (int a = 0; a < textLayout.lineY.length; a++) {
-			textLayout.lineY[a] += paragraphSpacing;
-		}
 		// TextLayoutOps.shiftLines(textLayout, 0, paragraphSpacing);
 	}
 
@@ -70,7 +53,7 @@ public class TextLayoutOps {
 	}
 
 	public static void forceComputeRuns(TextLayout layout, GC gc) {
-		layout.computeRuns(gc);
+		//layout.computeRuns(gc);
 	}
 
 	/**
@@ -100,13 +83,13 @@ public class TextLayoutOps {
 	public static Rectangle getBounds(TextLayout layout, int start, int end){
 		int indexStart =  layout.getLineIndex(start);
 		Rectangle r = layout.getBounds( start,end);
-		int delta = layout.lineY[0];
-		if( indexStart == 0){
-			r.y -= delta;	
-			//if(indexEnd == 0){
-			r.height +=delta;
-			//}
-		}
+//		int delta = layout.lineY[0];
+//		if( indexStart == 0){
+//			r.y -= delta;	
+//			//if(indexEnd == 0){
+//			r.height +=delta;
+//			//}
+//		}
 		return r;
 	}
 	
@@ -114,7 +97,7 @@ public class TextLayoutOps {
 		Rectangle r = layout.getLineBounds(index);
 		if ( index == 0){
 			r.y = 0;
-			r.height +=layout.lineY[index];
+			r.height +=getLineY(layout,index);
 		}
 		return r;
 	}
