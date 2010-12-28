@@ -4,23 +4,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import org.eclipse.core.runtime.CoreException;
-import org.eclipse.jface.viewers.CellEditor.LayoutData;
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.events.DisposeEvent;
-import org.eclipse.swt.events.DisposeListener;
-import org.eclipse.swt.graphics.UIUtils;
 import org.eclipse.swt.layout.FillLayout;
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.ui.IEditorDescriptor;
 import org.eclipse.ui.IEditorPart;
-import org.eclipse.ui.IEditorRegistry;
-import org.eclipse.ui.IPageListener;
-import org.eclipse.ui.IWorkbenchPage;
 import org.eclipse.ui.PlatformUI;
-import org.eclipse.ui.editors.text.TextEditor;
-import org.eclipse.ui.internal.ILayoutContainer;
 import org.eclipse.ui.internal.registry.EditorDescriptor;
 
 import com.onpositive.richtext.model.IRegionCompositeWrapper;
