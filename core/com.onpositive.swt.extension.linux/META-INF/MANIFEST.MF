@@ -1,0 +1,8 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Linux GTK Fragment
+Bundle-SymbolicName: com.onpositive.swt.extension.linux
+Bundle-Version: 1.0.0
+Bundle-Vendor: ONPOSITIVE
+Fragment-Host: org.eclipse.swt
+Eclipse-PlatformFilter: (osgi.os=linux)
