@@ -79,5 +79,17 @@
             sequence="M1+Y">
       </key>
    </extension>
+   <extension
+         id="product"
+         point="org.eclipse.core.runtime.products">
+      <product
+            application="ExtendedStyledTextRCP.application"
+            name="Browser snippet">
+         <property
+               name="appName"
+               value="Browser snippet">
+         </property>
+      </product>
+   </extension>
 
 </plugin>
