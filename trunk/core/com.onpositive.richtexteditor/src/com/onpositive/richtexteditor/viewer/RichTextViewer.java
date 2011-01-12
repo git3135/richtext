@@ -99,7 +99,7 @@ public class RichTextViewer extends SourceViewer {
 
 	protected RichTextViewerControlConfiguration configuration;
 
-	private Composite viewerArea;
+	protected Composite viewerArea;
 	protected LayerManager manager;
 	protected ActionFactory factory;
 	/**
@@ -308,10 +308,14 @@ public class RichTextViewer extends SourceViewer {
 		if (configuration.isCreateToolbar()) {
 			toolbarManager = createToolbarManager();
 			if (needToolbarSeparatorLine()) {
-				Label la = new Label(viewerArea, SWT.SEPARATOR | SWT.HORIZONTAL);
-				la.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+				createLabel();
 			}
 		}
+	}
+
+	protected void createLabel() {
+		Label la = new Label(viewerArea, SWT.SEPARATOR | SWT.HORIZONTAL);
+		la.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 	}
 
 	protected boolean needToolbarSeparatorLine() {
