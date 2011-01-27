@@ -3176,4 +3176,14 @@ public class ExtendedStyledText extends StyledText implements
 			putIndent(a, indents[a]);
 		}
 	}
+	
+	@Override
+	public int getOffsetAtLine(int lineIndex)
+	{
+		if (lineIndex < 0 || 
+				(lineIndex > 0 && lineIndex >= content.getLineCount())) {
+				return 0;
+			}
+		return super.getOffsetAtLine(lineIndex);
+	}
 }

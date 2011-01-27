@@ -533,6 +533,8 @@ public class RichTextViewer extends SourceViewer {
 	// TODO Refactor it later
 	protected void handleKey(VerifyEvent e) {
 		System.out.println(e.keyCode);
+		System.out.println((char)(e.character ^ SWT.MOD1));
+		
 		if ((e.keyCode == 'v' || e.keyCode == 'V')
 				&& ((e.stateMask & SWT.MOD1) != 0)
 				|| ((e.keyCode == SWT.INSERT) && (e.stateMask & SWT.MOD2) != 0)) {
@@ -542,7 +544,7 @@ public class RichTextViewer extends SourceViewer {
 		} else if ((e.keyCode == 'a' || e.keyCode == 'A')
 				&& (((e.stateMask & SWT.MOD1) != 0))) {
 			selectAllOperation(e);
-		} else if ((e.keyCode == 'c' || e.keyCode == 'C')
+		} else if ((e.keyCode == ('c' & SWT.MOD1) || e.keyCode == 'C')
 				&& (((e.stateMask & SWT.MOD1) != 0))) {
 			copyOperation(e);
 		} else if ((e.keyCode == 'b' || e.keyCode == 'B')

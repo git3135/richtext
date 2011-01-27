@@ -506,17 +506,17 @@ public class HTMLLexListener implements ILexListener {
 
 		globalBuilder.append("?");
 		IImage img = null;
-		try {
-			img = new Image(curSrc);
-		} catch (Exception e) {
-			try {
-				URL resourceAsStream = this.getClass().getResource(
-						"/com/onpositive/richtexteditor/img/notFound.gif");
-				img = new Image(resourceAsStream);
-			} catch (Exception e1) {
-				System.err.println("Can't find notFound.gif");
-			}
-		}
+//		try {
+//			img = new Image(curSrc);
+//		} catch (Exception e) {
+//			try {
+//				URL resourceAsStream = this.getClass().getResource(
+//						"/com/onpositive/richtexteditor/img/notFound.gif");
+//				img = new Image(resourceAsStream);
+//			} catch (Exception e1) {
+//				System.err.println("Can't find notFound.gif");
+//			}
+//		}
 		partitions.add(new ImagePartition(document, newOffset, 1, img, curSrc));
 
 	}
