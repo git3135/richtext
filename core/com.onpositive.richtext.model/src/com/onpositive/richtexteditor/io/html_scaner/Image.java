@@ -10,16 +10,16 @@ public class Image implements IImage {
 	String url;
 	
 	
-	public Image(String curSrc) {
+	private Image(String curSrc) {
 		this.url=curSrc;
 	}
 
-	public Image(URL resourceAsStream) {
+	private Image(URL resourceAsStream) {
 		this.url=resourceAsStream.toExternalForm();
 	}
 
 	public Rectangle getBounds() {
-		return null;
+		return new Rectangle(0,0,20,20);
 	}
 
 	public String url() {		

@@ -282,15 +282,20 @@ public class ExtendedRenderer extends StyledTextRenderer {
 		
 		TextLayout textLayout = super.getTextLayout(lineIndex, styledText
 				.getOrientation(), width, getLineSpacing(lineIndex));
-		if (getLineBullet(lineIndex, null) != null) //We need to "deshift" first line for bullet space to make pargraph more pretty look
-            textLayout.setIndent(textLayout.getIndent() - ExtendedStyledText.BULLET_SPACE);
+//		if (getLineBullet(lineIndex, null) != null) //We need to "deshift" first line for bullet space to make pargraph more pretty look
+//		{
+//			textLayout.setIndent(textLayout.getIndent() - ExtendedStyledText.BULLET_SPACE);
+//			
+//		}
 	    textLayout.setAlignment(alignment);
 		return textLayout;
 	}
 
 	protected void drawBullet(Bullet bullet, GC gc, int paintX, int paintY, int index, int lineAscent, int lineDescent, int lineIndex)
 	{
-		paintX -= ExtendedStyledText.BULLET_SPACE;
+		//paintX -= ExtendedStyledText.BULLET_SPACE;
+		if (lines != null && lines.length > lineIndex && lines[lineIndex] != null)
+			paintX += lines[lineIndex].indent;
 		super.drawBullet(bullet, gc, paintX, paintY, index-1, lineAscent, lineDescent);
 	}
 
@@ -363,6 +368,13 @@ public class ExtendedRenderer extends StyledTextRenderer {
 			lines[i].flags |= INDENT;
 			lines[i].indent = indent;
 		}
+//		if (styledText instanceof ExtendedStyledText)
+//		{
+//			for (int i = startLine; i < startLine + count; i++)
+//			{
+//				((ExtendedStyledText) styledText).putIndent(i,indent);
+//			}
+//		}
 	}
 
 	void setLineJustify(int startLine, int count, boolean justify) {
