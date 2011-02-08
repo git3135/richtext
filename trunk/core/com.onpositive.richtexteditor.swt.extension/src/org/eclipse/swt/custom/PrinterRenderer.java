@@ -4,7 +4,6 @@ import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Font;
 import org.eclipse.swt.graphics.FontData;
 import org.eclipse.swt.graphics.TextLayout;
-import org.eclipse.swt.graphics.TextLayoutOps;
 import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.printing.Printer;
 
@@ -144,14 +143,15 @@ public class PrinterRenderer extends Renderer {
 	protected boolean checkParagraphSpacing(int lineIndex, TextLayout textLayout,
 			int prevTotalLineCount, int a, TextLayout localLayout,
 			int practicalHeight, int height, int scaledBreakSize, int i) {
-		if (TextLayoutOps.needsSpacing(textLayout, localLayout, height,
+		ITextLayoutOps instance = TextLayoutOpsProvider.getInstance();
+		if (instance.needsSpacing(textLayout, localLayout, height,
 				practicalHeight)) {
 			if (i >= 0) {
 				int paragraphSpacing2 = (int) Math.round(getParagraphSpacing(lineIndex) * ratioY);
 				if (a == 0 && prevTotalLineCount == 0&&pagingEnabled) {
 					paragraphSpacing2 += scaledBreakSize / 2;
 				}
-				TextLayoutOps.setFirstLineSpacing(textLayout, localLayout,
+				instance.setFirstLineSpacing(textLayout, localLayout,
 						paragraphSpacing2);
 				firstLineShifts.put(textLayout, paragraphSpacing2);
 				return true;
