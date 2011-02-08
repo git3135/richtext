@@ -21,7 +21,6 @@ import java.util.List;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.SWTException;
-import org.eclipse.swt.custom.StyledTextRenderer.LineInfo;
 import org.eclipse.swt.events.MouseEvent;
 import org.eclipse.swt.events.MouseMoveListener;
 import org.eclipse.swt.graphics.Color;
@@ -36,9 +35,7 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.TextLayout;
-import org.eclipse.swt.graphics.TextLayoutOps;
 import org.eclipse.swt.graphics.Transform;
-import org.eclipse.swt.graphics.UIUtils;
 import org.eclipse.swt.internal.BidiUtil;
 import org.eclipse.swt.printing.Printer;
 import org.eclipse.swt.printing.PrinterData;
@@ -235,13 +232,13 @@ public class ExtendedStyledText extends StyledText implements
 						.getParagraphSpacing(index);
 				TextLayout local = ((Renderer) screenRenderer)
 						.createLayoutForVisibleLine(originalLayout, 0);
-				TextLayoutOps
+				TextLayoutOpsProvider.getInstance()
 						.shiftLines(
 								originalLayout,
 								0,
-								-TextLayoutOps.getLineBounds(originalLayout, 0).height 	+ (int) (screenRenderer.getLineHeight() * ((Renderer) screenRenderer)
+								-TextLayoutOpsProvider.getInstance().getLineBounds(originalLayout, 0).height 	+ (int) (screenRenderer.getLineHeight() * ((Renderer) screenRenderer)
 												.getScalingFactor()));
-				TextLayoutOps.setFirstLineSpacing(originalLayout, local,
+				TextLayoutOpsProvider.getInstance().setFirstLineSpacing(originalLayout, local,
 						spacingG);// +
 									// (int)(screenRenderer.getLineHeight()*((Renderer)screenRenderer).getScalingFactor()));
 				// spaccing+=spacingG*ry;
@@ -281,12 +278,12 @@ public class ExtendedStyledText extends StyledText implements
 			 * //localLayout.setAscent(0); //
 			 * localLayout.setDescent(layout.getDescent()); //
 			 * localLayout.setSpacing(layout.getSpacing());
-			 * TextLayoutOps.forceComputeRuns(localLayout, gc);
+			 * TextLayoutOpsProvider.getInstance().forceComputeRuns(localLayout, gc);
 			 * 
 			 * int shiftAmount = 0; /*if (i < layout.getLineCount()) {
-			 * shiftAmount = (int) ((TextLayoutOps .getLineHeight(layout, i)));
+			 * shiftAmount = (int) ((TextLayoutOpsProvider.getInstance() .getLineHeight(layout, i)));
 			 * // System.out.println(shiftAmount+":"+i); } else { int shift =
-			 * (int) Math.round(TextLayoutOps.getLineHeight( originalLayout,
+			 * (int) Math.round(TextLayoutOpsProvider.getInstance().getLineHeight( originalLayout,
 			 * i)); shiftAmount = shift; if (breakLayoutLine == i) shiftAmount
 			 * -= deshiftDelta; }
 			 */
@@ -396,7 +393,7 @@ public class ExtendedStyledText extends StyledText implements
 				
 				Rectangle rForFun = localLayout.getBounds(); //Do not delete
 				if(pSpacingg !=0 && i == 0){					
-					TextLayoutOps.setFirstLineSpacing(localLayout,localLayout,pSpacingg *(screenRenderer.getLineHeight()));
+					TextLayoutOpsProvider.getInstance().setFirstLineSpacing(localLayout,localLayout,pSpacingg *(screenRenderer.getLineHeight()));
 					//Test code
 					//gc.drawRectangle((int)((x + indents.get(index))/rx) ,
 					//		 (int)(y/ry),localLayout.getBounds().width,localLayout.getBounds().height);
@@ -410,7 +407,7 @@ public class ExtendedStyledText extends StyledText implements
 				// (int)(y/ry),localLayout.getBounds().width,localLayout.getBounds().height);
 				// //
 
-				int height = TextLayoutOps.getLineHeight(originalLayout,i);// localLayout.getBounds().height;
+				int height = TextLayoutOpsProvider.getInstance().getLineHeight(originalLayout,i);// localLayout.getBounds().height;
 				y += height * ry;
 				/*
 				 * TextLayout localLayout = ((PrinterRenderer) printerRenderer)
@@ -421,17 +418,17 @@ public class ExtendedStyledText extends StyledText implements
 				 * localLayout.setFont(layout.getFont());
 				 * localLayout.setAscent(layout.getAscent());
 				 * localLayout.setDescent(layout.getDescent());
-				 * TextLayoutOps.forceComputeRuns(localLayout, gc); int shift =
-				 * (int) Math.round(TextLayoutOps.getLineY( originalLayout, i)
+				 * TextLayoutOpsProvider.getInstance().forceComputeRuns(localLayout, gc); int shift =
+				 * (int) Math.round(TextLayoutOpsProvider.getInstance().getLineY( originalLayout, i)
 				 * ((PrinterRenderer) printerRenderer).getRatioY()); int
 				 * shiftAmount; if (fromIndex == 0 && i < layout.getLineCount())
-				 * shiftAmount = TextLayoutOps.getLineY(layout, i) - (y -
+				 * shiftAmount = TextLayoutOpsProvider.getInstance().getLineY(layout, i) - (y -
 				 * initialY); else if (fromIndex > 0) { shiftAmount =
 				 * Math.max(fullScreenBreakSize / 2 + headerOffset -
 				 * clientArea.y, headerOffset); } else { shiftAmount = shift -
 				 * (y - initialY); if (breakLayoutLine == i) shiftAmount -=
 				 * deshiftDelta; } if (shiftAmount > 0){
-				 * TextLayoutOps.shiftLines(localLayout, 0, shiftAmount); //
+				 * TextLayoutOpsProvider.getInstance().shiftLines(localLayout, 0, shiftAmount); //
 				 * delta = shiftAmount; }else{ // delta = 0; }
 				 */
 				/*
@@ -706,8 +703,8 @@ public class ExtendedStyledText extends StyledText implements
 					needBreak = paragraphBottom > pageBottom;
 				}
 				for (int j = 0; j < layout.getLineCount(); j++) {
-					if (TextLayoutOps.getLineHeight(layout, j) > fullScreenBreakSize && false)
-						TextLayoutOps.shiftLines(layout, j,
+					if (TextLayoutOpsProvider.getInstance().getLineHeight(layout, j) > fullScreenBreakSize && false)
+						TextLayoutOpsProvider.getInstance().shiftLines(layout, j,
 								-fullScreenBreakSize); // Remove illegal
 					// pagebreaks
 				}
@@ -718,10 +715,10 @@ public class ExtendedStyledText extends StyledText implements
 							.getFirstLayoutLineShift(layout);
 					if (i == 0 && false) {
 						if (clientArea.y < firstLineBreak)
-							TextLayoutOps.setFirstLineSpacing(layout, layout,
+							TextLayoutOpsProvider.getInstance().setFirstLineSpacing(layout, layout,
 									-clientArea.y);
 						else
-							TextLayoutOps.setFirstLineSpacing(layout, layout,
+							TextLayoutOpsProvider.getInstance().setFirstLineSpacing(layout, layout,
 									-firstLineBreak);
 					}
 
@@ -735,7 +732,7 @@ public class ExtendedStyledText extends StyledText implements
 						int lineCount = layout.getLineCount();
 						while (paragraphBottom > pageBottom && lineCount > 0) {
 							lineCount--;
-							paragraphBottom -= TextLayoutOps.getLineBounds(
+							paragraphBottom -= TextLayoutOpsProvider.getInstance().getLineBounds(
 									layout, lineCount).height// layout.getLineBounds(lineCount).height
 									+ layout.getSpacing();
 						}
@@ -767,9 +764,9 @@ public class ExtendedStyledText extends StyledText implements
 									breakLayoutLine); // print header
 							paintY = this.headerOffset;// clientArea.y -
 														// tempDeshift;
-							// TextLayoutOps.shiftLines(layout, 0,
+							// TextLayoutOpsProvider.getInstance().shiftLines(layout, 0,
 							// -Math.min(deshiftDelta,
-							// TextLayoutOps.getLineAscent(layout,0)));
+							// TextLayoutOpsProvider.getInstance().getLineAscent(layout,0)));
 							//int headerOffset = 0;
 							/*
 							 * if (pageInformation != null) headerOffset =
@@ -779,7 +776,7 @@ public class ExtendedStyledText extends StyledText implements
 							 * ()[breakLayoutLine],null,pageInformation);
 							 */
 							if (headerOffset > 0 && false) {
-								TextLayoutOps.shiftLines(layout,
+								TextLayoutOpsProvider.getInstance().shiftLines(layout,
 										breakLayoutLine, headerOffset);
 							}
 							printLine(paintX, paintY, gc, foreground,
@@ -793,9 +790,9 @@ public class ExtendedStyledText extends StyledText implements
 						// gc.setClipping(clientArea.x, paintY,
 						// clientArea.width,
 						// height);
-						// TextLayoutOps.shiftLines(layout, breakLayoutLine,
+						// TextLayoutOpsProvider.getInstance().shiftLines(layout, breakLayoutLine,
 						// -Math.min(deshiftDelta,
-						// TextLayoutOps.getLineAscent(layout,breakLayoutLine)));
+						// TextLayoutOpsProvider.getInstance().getLineAscent(layout,breakLayoutLine)));
 						int headerOffset = 0;
 						/*
 						 * if (pageInformation != null) headerOffset =
@@ -805,7 +802,7 @@ public class ExtendedStyledText extends StyledText implements
 						 * [breakLayoutLine],null,pageInformation);
 						 */
 						if(false){
-							TextLayoutOps.shiftLines(layout, breakLayoutLine,
+							TextLayoutOpsProvider.getInstance().shiftLines(layout, breakLayoutLine,
 								headerOffset);
 						}
 						printLinesFromTo(paintX, paintY, gc, foreground,
@@ -825,7 +822,7 @@ public class ExtendedStyledText extends StyledText implements
 							paintY = this.headerOffset;// clientArea.y;
 
 							// int layoutHeight = layout.getBounds().height;
-							// int clipHeight = TextLayoutOps.getLineY(layout,
+							// int clipHeight = TextLayoutOpsProvider.getInstance().getLineY(layout,
 							// breakLayoutLine);
 							// gc.setClipping(clientArea.x, clientArea.y,
 							// clientArea.width, layoutHeight - height);
@@ -1291,7 +1288,7 @@ public class ExtendedStyledText extends StyledText implements
 		int lineIndex = layout.getLineIndex(offsetInLine);
 		int[] offsets = layout.getLineOffsets();
 		if (lineIndex != 0 && offsetInLine == offsets[lineIndex]) {
-			int lineY = TextLayoutOps.getLineBounds(layout, lineIndex).y;// layout.getLineBounds(lineIndex).y;
+			int lineY = TextLayoutOpsProvider.getInstance().getLineBounds(layout, lineIndex).y;// layout.getLineBounds(lineIndex).y;
 			int caretY = getCaret().getLocation().y
 					- getLinePixel(getCaretLine());
 			if (lineY > caretY)
@@ -1365,7 +1362,7 @@ public class ExtendedStyledText extends StyledText implements
 					ExtendedStyledText.this.setCursor(defaultCursor);
 			}
 		});
-		final Point screenSize = TextLayoutOps.getScreenSize();
+		final Point screenSize = TextLayoutOpsProvider.getInstance().getScreenSize();
 
 		if (screenSize != null) {
 			screenResolver = new IPPIResolver() {
@@ -1726,7 +1723,7 @@ public class ExtendedStyledText extends StyledText implements
 		if (line.length() != 0) {
 			int offsetInLine = offset - lineOffset;
 			TextLayout layout = renderer.getTextLayout(lineIndex);
-			bounds = TextLayoutOps
+			bounds = TextLayoutOpsProvider.getInstance()
 					.getBounds(layout, offsetInLine, offsetInLine);// layout.getBounds(offsetInLine,
 																	// offsetInLine);
 			renderer.disposeTextLayout(layout);
@@ -1767,7 +1764,7 @@ public class ExtendedStyledText extends StyledText implements
 					y = renderer.getLineHeight(caretLine) - 1;
 				}
 			} else {
-				y = TextLayoutOps.getLineBounds(layout, lineIndex - 1).y;// layout.getLineBounds(lineIndex
+				y = TextLayoutOpsProvider.getInstance().getLineBounds(layout, lineIndex - 1).y;// layout.getLineBounds(lineIndex
 																			// -
 																			// 1).y;
 			}
@@ -2000,12 +1997,12 @@ public class ExtendedStyledText extends StyledText implements
 
 		if (lineLength != 0 && offsetInLine <= lineLength) {
 			if (offsetInLine == lineLength) {
-				point = TextLayoutOps.getLocation(layout, offsetInLine - 1,
+				point = TextLayoutOpsProvider.getInstance().getLocation(layout, offsetInLine - 1,
 						true);// layout.getLocation(offsetInLine - 1, true);
 			} else {
 				switch (caretAlignment) {
 				case OFFSET_LEADING:
-					point = TextLayoutOps.getLocation(layout, offsetInLine,
+					point = TextLayoutOpsProvider.getInstance().getLocation(layout, offsetInLine,
 							false);// layout.getLocation(offsetInLine, false);
 					break;
 				case PREVIOUS_OFFSET_TRAILING:
@@ -2014,7 +2011,7 @@ public class ExtendedStyledText extends StyledText implements
 					boolean found = false;
 					for (int a = 0; a < lineOffsets.length; a++) {
 						if (lineOffsets[a] == offsetInLine) {
-							point = TextLayoutOps.getLocation(layout,
+							point = TextLayoutOpsProvider.getInstance().getLocation(layout,
 									offsetInLine, false);// layout.getLocation(offsetInLine,
 															// false);
 							found = true;
@@ -2023,7 +2020,7 @@ public class ExtendedStyledText extends StyledText implements
 					}
 					if (!found) {
 
-						point = TextLayoutOps.getLocation(layout,
+						point = TextLayoutOpsProvider.getInstance().getLocation(layout,
 								offsetInLine - 1, true);// layout.getLocation(offsetInLine
 														// - 1, true);
 
@@ -2034,7 +2031,7 @@ public class ExtendedStyledText extends StyledText implements
 		} else {
 			point = new Point(layout.getIndent(), 0);
 		}
-		int lineAscent = TextLayoutOps.getLineAscent(layout, 0);
+		int lineAscent = TextLayoutOpsProvider.getInstance().getLineAscent(layout, 0);
 		if (lineAscent > 0) {
 			if (layout.getLineIndex(offsetInLine) == 0) {
 				point.y += lineAscent - layout.getAscent();
@@ -2135,7 +2132,7 @@ public class ExtendedStyledText extends StyledText implements
 				y += renderer.drawLine(i, x, y, gc, background, foreground);
 
 			}
-			if (i < lineCount && TextLayoutOps.needToDrawFirstInvivsibleLine()
+			if (i < lineCount && TextLayoutOpsProvider.getInstance().needToDrawFirstInvivsibleLine()
 					&& pageInformation != null) {
 				int x = leftMargin(i) - horizontalScrollOffset;
 				y += renderer.drawLine(i, x, y, gc, background, foreground);
@@ -2147,7 +2144,7 @@ public class ExtendedStyledText extends StyledText implements
 			// int p=r.getLineY(lineCount-1);
 			// int h=r.getLineHeight(lineCount-1);
 			// p+=h;
-			// if (TextLayoutOps.getExtra()==1){
+			// if (TextLayoutOpsProvider.getInstance().getExtra()==1){
 			// int visutalPos=r.getLineCount(lineCount-1)-1;
 			// while (visutalPos%r.pageLineCount!=0){
 			// p+=h;
@@ -2271,20 +2268,20 @@ public class ExtendedStyledText extends StyledText implements
 			if (length > 0) {
 				if (i == lineStart) {
 					if (i == lineEnd) {
-						rect = TextLayoutOps.getBounds(layout, start
+						rect = TextLayoutOpsProvider.getInstance().getBounds(layout, start
 								- lineOffset, end - lineOffset);// layout.getBounds(start
 																// - lineOffset,
 																// end -
 																// lineOffset);
 					} else {
-						rect = TextLayoutOps.getBounds(layout, start
+						rect = TextLayoutOpsProvider.getInstance().getBounds(layout, start
 								- lineOffset, length);// layout.getBounds(start
 														// - lineOffset,
 														// length);
 					}
 					y += rect.y;
 				} else if (i == lineEnd) {
-					rect = TextLayoutOps.getBounds(layout, 0, end - lineOffset); // layout.getBounds(0,
+					rect = TextLayoutOpsProvider.getInstance().getBounds(layout, 0, end - lineOffset); // layout.getBounds(0,
 																					// end
 																					// -
 																					// lineOffset);
@@ -2348,7 +2345,7 @@ public class ExtendedStyledText extends StyledText implements
 		 * first char
 		 */
 		if (wordWrap && startIndex > 0 && offsets[startIndex] == start) {
-			Rectangle rect = TextLayoutOps
+			Rectangle rect = TextLayoutOpsProvider.getInstance()
 					.getLineBounds(layout, startIndex - 1);// layout.getLineBounds(startIndex
 															// - 1);
 			rect.x = rect.width;
@@ -2367,7 +2364,7 @@ public class ExtendedStyledText extends StyledText implements
 				 * Redraw rect between start and end offset if start and end
 				 * offsets are in same wrapped line
 				 */
-				Rectangle rect = TextLayoutOps
+				Rectangle rect = TextLayoutOpsProvider.getInstance()
 						.getBounds(layout, start, end - 1);// layout.getBounds(start,
 															// end - 1);
 				rect.x += lineX;
@@ -2380,11 +2377,11 @@ public class ExtendedStyledText extends StyledText implements
 		}
 
 		/* Redraw start line from the start offset to the end of client area */
-		Rectangle startRect = TextLayoutOps.getBounds(layout, start,
+		Rectangle startRect = TextLayoutOpsProvider.getInstance().getBounds(layout, start,
 				offsets[startIndex + 1] - 1);// layout.getBounds(start,offsets[startIndex
 												// + 1] - 1);
 		if (startRect.height == 0) {
-			Rectangle bounds = TextLayoutOps.getLineBounds(layout, startIndex);// layout.getLineBounds(startIndex);
+			Rectangle bounds = TextLayoutOpsProvider.getInstance().getLineBounds(layout, startIndex);// layout.getLineBounds(startIndex);
 			startRect.x = bounds.width;
 			startRect.y = bounds.y;
 			startRect.height = bounds.height;
@@ -2404,10 +2401,10 @@ public class ExtendedStyledText extends StyledText implements
 		}
 		int endIndex = layout.getLineIndex(Math.min(end, layout.getText()
 				.length()));
-		Rectangle endRect = TextLayoutOps.getBounds(layout, offsets[endIndex],
+		Rectangle endRect = TextLayoutOpsProvider.getInstance().getBounds(layout, offsets[endIndex],
 				end - 1);// layout.getBounds(offsets[endIndex], end - 1);
 		if (endRect.height == 0) {
-			Rectangle bounds = TextLayoutOps.getLineBounds(layout, endIndex);// layout.getLineBounds(endIndex);
+			Rectangle bounds = TextLayoutOpsProvider.getInstance().getLineBounds(layout, endIndex);// layout.getLineBounds(endIndex);
 			endRect.y = bounds.y;
 			endRect.height = bounds.height;
 		}
@@ -2440,7 +2437,7 @@ public class ExtendedStyledText extends StyledText implements
 		} else {
 			int bottomIndex = getPartialBottomIndex();
 			int height = getLinePixel(bottomIndex + 1);
-			if (TextLayoutOps.getExtra() == 0) {
+			if (TextLayoutOpsProvider.getInstance().getExtra() == 0) {
 				if (clientAreaHeight - bottomMargin > height) {
 					scrollVertical(-getAvailableHeightAbove(clientAreaHeight
 							- height), true);

@@ -7,10 +7,10 @@ import org.eclipse.swt.custom.ExtendedRenderer;
 import org.eclipse.swt.custom.ExtendedStyledText;
 import org.eclipse.swt.custom.ITextLayoutDecorator;
 import org.eclipse.swt.custom.StyledText;
+import org.eclipse.swt.custom.TextLayoutOpsProvider;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.TextLayout;
-import org.eclipse.swt.graphics.TextLayoutOps;
 
 public class ParagraphRenderer extends ExtendedRenderer
 {
@@ -27,12 +27,12 @@ public class ParagraphRenderer extends ExtendedRenderer
 	protected void checkParagraphSpacing(int lineIndex, TextLayout textLayout,
 			int a, TextLayout localLayout, int practicalHeight,
 			int height, int i) {
-		if (TextLayoutOps.needsSpacing(textLayout, localLayout, height,
+		if (TextLayoutOpsProvider.getInstance().needsSpacing(textLayout, localLayout, height,
 				practicalHeight)) {
 			if (i >= 0) {
 				boolean empty = textLayout.getText().trim().isEmpty();
 				int paragraphSpacing2 = getParagraphSpacing(lineIndex,empty);				
-				TextLayoutOps.setFirstLineSpacing(textLayout, localLayout,
+				TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout, localLayout,
 						paragraphSpacing2);
 			}
 		}
@@ -92,8 +92,7 @@ public class ParagraphRenderer extends ExtendedRenderer
 				lineInLayout);
 		int practicalHeight = getPracticalLayoutHeight(localLayout);
 		//int practicalHeight = 0;
-		int actualHeight = TextLayoutOps
-				.getLineHeight(textLayout, lineInLayout);
+		int actualHeight = TextLayoutOpsProvider.getInstance().getLineHeight(textLayout, lineInLayout);
 		boolean isFirstLineInLayout = lineInLayout == 0;
 		if (isFirstLineInLayout)
 			checkParagraphSpacing(logicalLineIndex, textLayout,

@@ -13,15 +13,11 @@ package org.eclipse.swt.custom;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.IdentityHashMap;
 import java.util.Iterator;
 import java.util.WeakHashMap;
 
-import javax.sound.sampled.LineListener;
-
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.custom.StyledTextRenderer.LineInfo;
 import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.Device;
 import org.eclipse.swt.graphics.Font;
@@ -33,11 +29,8 @@ import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.graphics.TextLayout;
-import org.eclipse.swt.graphics.TextLayoutOps;
 import org.eclipse.swt.graphics.TextStyle;
 import org.eclipse.swt.widgets.IME;
-import org.eclipse.swt.widgets.Layout;
-import org.eclipse.swt.widgets.Text;
 
 /**
  * This Renderer implements experimental support
@@ -446,10 +439,10 @@ public class Renderer extends ExtendedRenderer {
 		int practicalHeight = getPracticalLayoutHeight(localLayout);
 		int subLine = -1;
 
-		int actualHeight = TextLayoutOps
-				.getLineHeight(textLayout, lineInLayout);
+		int actualHeight = TextLayoutOpsProvider.getInstance().
+				getLineHeight(textLayout, lineInLayout);
 
-		// int prevHeight = lineInLayout == 0 ? 0 : TextLayoutOps.getLineHeight(
+		// int prevHeight = lineInLayout == 0 ? 0 : TextLayoutOpsProvider.getInstance().getLineHeight(
 		// textLayout, lineInLayout - 1);
 		// int prevLinesInsideLayout = prevHeight
 		// / (int) (getLineHeight() * scalingFactor);
@@ -463,7 +456,7 @@ public class Renderer extends ExtendedRenderer {
 		int loopBegin = 0;
 		int loopEnd = 0;
 		int numOfLines = 0;
-		// if (TextLayoutOps.getExtra() == 0) {
+		// if (TextLayoutOpsProvider.getInstance().getExtra() == 0) {
 		//
 		// int paragraphSpacingInSymbols =
 		// getParagraphSpacingInSymbols(logicalLineIndex);
@@ -543,14 +536,14 @@ public class Renderer extends ExtendedRenderer {
 				if (actualHeight < theoreticalHeight) {
 					// we should insert break
 					if (currLastBreak < paragraphSpacingInSymbols) {
-						if (TextLayoutOps.getExtra() != 0) {
+						if (TextLayoutOpsProvider.getInstance().getExtra() != 0) {
 							shiftLines(textLayout, lineInLayout, -actualHeight
 									+ practicalHeight);
-							TextLayoutOps.setFirstLineSpacing(textLayout,
+							TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout,
 									localLayout, theoreticalHeight);// (int)
 							firstLineShifts.put(textLayout, theoreticalHeight);
 						} else {
-							TextLayoutOps.setFirstLineSpacing(textLayout,
+							TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout,
 									localLayout, theoreticalHeight
 											- actualHeight + practicalHeight);// (int)
 							firstLineShifts.put(textLayout, theoreticalHeight);
@@ -606,21 +599,21 @@ public class Renderer extends ExtendedRenderer {
 				lineShift = firstLineShifts.get(textLayout);
 			}
 			if (lineShift > 0) {
-				if (TextLayoutOps.getExtra() != 0) {
+				if (TextLayoutOpsProvider.getInstance().getExtra() != 0) {
 					int paragraphSpacing2 = getParagraphSpacing(logicalLineIndex);
 					shiftLines(textLayout, lineInLayout, deltta);
 					if (paragraphSpacing2 != 0) {
-						TextLayoutOps.setFirstLineSpacing(textLayout,
+						TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout,
 								localLayout, paragraphSpacing2);
 						firstLineShifts.put(textLayout, paragraphSpacing2);
 					}
 				} else {
 					int paragraphSpacing2 = getParagraphSpacing(logicalLineIndex);
 					if (paragraphSpacing2 == lineShift) {
-						TextLayoutOps.shiftLines(textLayout, 0, (-1)
+						TextLayoutOpsProvider.getInstance().shiftLines(textLayout, 0, (-1)
 								* scaledBreakSize);
 					} else {
-						TextLayoutOps.setFirstLineSpacing(textLayout,
+						TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout,
 								localLayout, deltta + paragraphSpacing2);
 						if (paragraphSpacing2 != 0) {
 							firstLineShifts.put(textLayout, paragraphSpacing2);
@@ -628,19 +621,19 @@ public class Renderer extends ExtendedRenderer {
 					}
 				}
 			} else if (paragraphSpacingInSymbols == 0) {
-				if (TextLayoutOps.getExtra() != 0) {
+				if (TextLayoutOpsProvider.getInstance().getExtra() != 0) {
 					shiftLines(textLayout, lineInLayout, deltta);
 					firstLineShifts.remove(textLayout);
 				} else {
-					TextLayoutOps.shiftLines(textLayout, 0, deltta);
+					TextLayoutOpsProvider.getInstance().shiftLines(textLayout, 0, deltta);
 					firstLineShifts.remove(textLayout);
 				}
 			} else {
-				if (TextLayoutOps.getExtra() != 0) {
+				if (TextLayoutOpsProvider.getInstance().getExtra() != 0) {
 					shiftLines(textLayout, lineInLayout, scaledBreakSize * (-1));
 				} else {
 					int paragraphSpacing2 = getParagraphSpacing(logicalLineIndex);
-					TextLayoutOps.setFirstLineSpacing(textLayout, localLayout,
+					TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout, localLayout,
 							deltta);
 					if (paragraphSpacing2 != 0) {
 						firstLineShifts.put(textLayout, paragraphSpacing2);
@@ -660,14 +653,14 @@ public class Renderer extends ExtendedRenderer {
 				&& !(logicalLineIndex == 0 && lineInLayout == 0)
 				&& lineInLayout == 0) {
 			int paragraphSpacing2 = getParagraphSpacing(logicalLineIndex);
-			if (TextLayoutOps.getExtra() != 0) {
+			if (TextLayoutOpsProvider.getInstance().getExtra() != 0) {
 				shiftLines(
 						textLayout,
 						lineInLayout,
 						(-1)
 								* (int) (changedPpSpacing * getLineHeight() * scalingFactor));
 				if (paragraphSpacing2 != 0) {
-					TextLayoutOps.setFirstLineSpacing(textLayout, localLayout,
+					TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout, localLayout,
 							paragraphSpacing2);
 					firstLineShifts.put(textLayout, paragraphSpacing2);
 				}
@@ -677,11 +670,11 @@ public class Renderer extends ExtendedRenderer {
 							paragraphSpacingInSymbols);
 				}
 			} else {
-				int deltah = TextLayoutOps.getLineHeight(textLayout, 0);
-				TextLayoutOps.setFirstLineSpacing(textLayout, localLayout,
+				int deltah = TextLayoutOpsProvider.getInstance().getLineHeight(textLayout, 0);
+				TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout, localLayout,
 						-deltah + (int) (getLineHeight() * scalingFactor));
-				// deltah = TextLayoutOps.getLineHeight(textLayout,0);
-				TextLayoutOps.setFirstLineSpacing(textLayout, localLayout,
+				// deltah = TextLayoutOpsProvider.getInstance().getLineHeight(textLayout,0);
+				TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout, localLayout,
 						paragraphSpacing2);
 				if (paragraphSpacing2 != 0) {
 					firstLineShifts.put(textLayout, paragraphSpacing2);
@@ -694,9 +687,9 @@ public class Renderer extends ExtendedRenderer {
 		} else if (!(needBreak && pagingEnabled) && paragraphSpacing <= 0
 				&& actualHeight >= (practicalHeight + scaledBreakSize)
 				&& lineInLayout != 0) {
-			if (TextLayoutOps.getExtra() == 0
+			if (TextLayoutOpsProvider.getInstance().getExtra() == 0
 					&& actualHeight - practicalHeight >= scaledBreakSize) {
-				TextLayoutOps.shiftLines(textLayout, lineInLayout,
+				TextLayoutOpsProvider.getInstance().shiftLines(textLayout, lineInLayout,
 						practicalHeight - actualHeight);
 			}
 		}
@@ -719,13 +712,13 @@ public class Renderer extends ExtendedRenderer {
 		if (currLastBreak != lastLineWithBreak) {
 			int paragraphSpacingInSymbols = getParagraphSpacingInSymbols(logicalLineIndex);
 			if (currLastBreak == paragraphSpacingInSymbols) {
-				if (TextLayoutOps.getExtra() != 0) {
+				if (TextLayoutOpsProvider.getInstance().getExtra() != 0) {
 					shiftLines(
 							textLayout,
 							lineInLayout,
 							-(int) (paragraphSpacingInSymbols * getLineHeight() * scalingFactor));
 					if (paragraphSpacingInSymbols != 0) {
-						TextLayoutOps.setFirstLineSpacing(textLayout,
+						TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout,
 								localLayout, (int) (paragraphSpacingInSymbols
 										* getLineHeight() * scalingFactor));
 						firstLineShifts.put(textLayout,
@@ -734,11 +727,11 @@ public class Renderer extends ExtendedRenderer {
 					}
 					// shiftLines(textLayout, lineInLayout,delta);
 				} else {
-					TextLayoutOps.setFirstLineSpacing(textLayout, localLayout,
+					TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout, localLayout,
 							(int) (-1 * paragraphSpacingInSymbols
 									* getLineHeight() * scalingFactor - delta));
 					if (paragraphSpacingInSymbols != 0) {
-						TextLayoutOps.setFirstLineSpacing(textLayout,
+						TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout,
 								localLayout, (int) (paragraphSpacingInSymbols
 										* getLineHeight() * scalingFactor));
 						firstLineShifts.put(textLayout,
@@ -749,11 +742,11 @@ public class Renderer extends ExtendedRenderer {
 
 				}
 			} else if (lastLineWithBreak == paragraphSpacingInSymbols || flg) {
-				if (TextLayoutOps.getExtra() != 0) {
+				if (TextLayoutOpsProvider.getInstance().getExtra() != 0) {
 					shiftLines(textLayout, lineInLayout, -delta
 							- (int) (paragraphSpacingInSymbols
 									* getLineHeight() * scalingFactor));
-					TextLayoutOps.setFirstLineSpacing(textLayout, localLayout,
+					TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout, localLayout,
 							(int) (delta + paragraphSpacingInSymbols
 									* getLineHeight() * scalingFactor));
 					firstLineShifts.put(textLayout,
@@ -761,7 +754,7 @@ public class Renderer extends ExtendedRenderer {
 									* getLineHeight() * scalingFactor));
 				} else {
 					shiftLines(textLayout, lineInLayout, -delta);
-					TextLayoutOps.setFirstLineSpacing(textLayout, localLayout,
+					TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout, localLayout,
 							(int) (delta));
 					firstLineShifts.put(textLayout,
 							(int) (delta + paragraphSpacingInSymbols
@@ -784,11 +777,11 @@ public class Renderer extends ExtendedRenderer {
 		if (prevShift == null)
 			prevShift = 0;
 		if (lineInLayout == 0) {
-			if (TextLayoutOps.getExtra() != 0) {
+			if (TextLayoutOpsProvider.getInstance().getExtra() != 0) {
 				firstLineShifts.put(textLayout, delta + prevShift);
 			}
 		}
-		TextLayoutOps.shiftLines(textLayout, lineInLayout, delta);
+		TextLayoutOpsProvider.getInstance().shiftLines(textLayout, lineInLayout, delta);
 	}
 
 	public int getFirstLayoutLineShift(TextLayout layout) {
@@ -849,7 +842,7 @@ public class Renderer extends ExtendedRenderer {
 			TextLayout textLayout, int prevTotalLineCount, int a,
 			TextLayout localLayout, int practicalHeight, int height,
 			int scaledBreakSize, int i, boolean breakInsideSpacing) {
-		if (TextLayoutOps.needsSpacing(textLayout, localLayout, height,
+		if (TextLayoutOpsProvider.getInstance().needsSpacing(textLayout, localLayout, height,
 				practicalHeight)
 				&& i >= 0) {
 			int paragraphSpacing2 = getParagraphSpacing(lineIndex);
@@ -862,7 +855,7 @@ public class Renderer extends ExtendedRenderer {
 				paragraphSpacing2 += scaledBreakSize;
 			}
 
-			TextLayoutOps.setFirstLineSpacing(textLayout, localLayout,
+			TextLayoutOpsProvider.getInstance().setFirstLineSpacing(textLayout, localLayout,
 					paragraphSpacing2);
 			if (paragraphSpacing2 != 0) {
 				firstLineShifts.put(textLayout, paragraphSpacing2);
@@ -1030,7 +1023,7 @@ public class Renderer extends ExtendedRenderer {
 			if (lineWidth[i] == -1 || lineHeight[i] == -1) {
 
 				TextLayout layout = getTextLayout(i);
-				lineHeight[i] = TextLayoutOps.getHeight(layout);
+				lineHeight[i] = TextLayoutOpsProvider.getInstance().getHeight(layout);
 				Rectangle rect = layout.getBounds();
 				lineWidth[i] = rect.width + hTrim;
 
@@ -1457,9 +1450,9 @@ public class Renderer extends ExtendedRenderer {
 	public int getNumberOfLineInsideLayout(int offset, TextLayout layout) {
 		int layoutLineCount = layout.getLineCount();
 		for (int i = 0; i < layoutLineCount; i++) {
-			int left = TextLayoutOps.getLineY(layout, i);
-			int right = TextLayoutOps.getLineY(layout, i)
-					+ TextLayoutOps.getLineHeight(layout, i);
+			int left = TextLayoutOpsProvider.getInstance().getLineY(layout, i);
+			int right = TextLayoutOpsProvider.getInstance().getLineY(layout, i)
+					+ TextLayoutOpsProvider.getInstance().getLineHeight(layout, i);
 
 			if (offset >= left && offset < right) {
 				return i;
