@@ -597,12 +597,7 @@ public class WikitextSerializer extends HTMLSerializer {
 
 		// Let's delete trailing CR's. We'll add them manually later //TODO Can
 		// we delete some useful?
-		int pos = builder.length() - 1;
-		while (pos > 0
-				&& (builder.charAt(pos) == '\n' || builder.charAt(pos) == '\r')) {
-			builder.deleteCharAt(pos);
-			pos--;
-		}
+		deleteWhitespace(builder);
 
 		if (wasFontStyleMarkupTag) {
 			builder.append(" ");
@@ -615,6 +610,15 @@ public class WikitextSerializer extends HTMLSerializer {
 			builder.append(fontStyleClosingTag);
 		}
 
+	}
+
+	protected void deleteWhitespace(StringBuilder builder) {
+		int pos = builder.length() - 1;
+		while (pos > 0
+				&& (builder.charAt(pos) == '\n' || builder.charAt(pos) == '\r')) {
+			builder.deleteCharAt(pos);
+			pos--;
+		}
 	}
 
 	protected String serializeAsTable(RegionPartition partition) {
@@ -648,7 +652,7 @@ public class WikitextSerializer extends HTMLSerializer {
 		escapingSymbolInsertionPoints = new ArrayList<Integer>();
 		// specialEscapingSymbolInsertionPoints = new ArrayList<Integer[]>();
 		String txt = doc.get(offset, length);
-		String trim = txt.trim();
+		String trim = trim(txt);
 		if (trim.length() == 0)
 			return;
 		int firstValuableCharIdx = 0;
@@ -733,6 +737,10 @@ public class WikitextSerializer extends HTMLSerializer {
 			 */
 		}
 
+	}
+
+	protected String trim(String txt) {
+		return txt.trim();
 	}
 
 	protected int getMarkupEndingOffset(char charAt, int offset, String text) {
@@ -934,7 +942,7 @@ public class WikitextSerializer extends HTMLSerializer {
 		for (int i = 0; i < doc.getNumberOfLines(); i++) {
 			String serializedLine = getSerializedLine(i);
 			String endingNewline = "\n";
-			if (serializedLine.trim().length() == 0) {
+			if (trim(serializedLine).length() == 0) {
 				serializedLine = "";
 				if (str.length() > 2) {
 					if (str.charAt(str.length() - 1) == '\n') {
