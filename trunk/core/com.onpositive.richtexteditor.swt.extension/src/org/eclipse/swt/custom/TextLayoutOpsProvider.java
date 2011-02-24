@@ -62,6 +62,10 @@ public class TextLayoutOpsProvider {
 		public Rectangle getBounds(TextLayout layout, int i, int j) {
 			return layout.getBounds(i, j);
 		}
+
+		public boolean canShiftParagraphs() {
+			return false;
+		}
 	};
 	
 	public static ITextLayoutOps getInstance() {		

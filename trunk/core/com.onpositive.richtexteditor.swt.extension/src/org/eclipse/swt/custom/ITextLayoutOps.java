@@ -34,6 +34,8 @@ public interface ITextLayoutOps {
 
 	Point getScreenSize();
 
+	boolean canShiftParagraphs();
+
 	
 }
 	
