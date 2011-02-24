@@ -14,7 +14,7 @@ import org.eclipse.swt.graphics.TextLayout;
 
 public class ParagraphRenderer extends ExtendedRenderer
 {
-	private static final int PAR_SPACING = 15;
+	private int PAR_SPACING = 0;
 	protected int paragraphSpacing = 0;	
 	protected StyledText styledText;
 
@@ -22,6 +22,7 @@ public class ParagraphRenderer extends ExtendedRenderer
 	{
 		super(device, styledText);
 		this.styledText = styledText;
+		PAR_SPACING=TextLayoutOpsProvider.getInstance().canShiftParagraphs()?15:0;
 	}
 	
 	protected void checkParagraphSpacing(int lineIndex, TextLayout textLayout,
@@ -76,7 +77,7 @@ public class ParagraphRenderer extends ExtendedRenderer
 						
 					}
 					else{
-						paintY+=15;
+						paintY+=PAR_SPACING;
 					}
 				}					
 			}

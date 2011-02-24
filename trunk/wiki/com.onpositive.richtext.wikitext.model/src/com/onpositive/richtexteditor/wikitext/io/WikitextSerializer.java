@@ -656,7 +656,7 @@ public class WikitextSerializer extends HTMLSerializer {
 		if (trim.length() == 0)
 			return;
 		int firstValuableCharIdx = 0;
-		while (Character.isWhitespace(txt.charAt(firstValuableCharIdx)))
+		while (firstValuableCharIdx<txt.length()&&Character.isWhitespace(txt.charAt(firstValuableCharIdx)))
 			firstValuableCharIdx++;
 		final String regionStartKeyword = tokenProvider
 				.getKeyword(WikitextTokenProvider.WIKITEXT_REGION_START);
