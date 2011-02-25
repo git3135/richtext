@@ -563,6 +563,10 @@ public class WikitextSerializer extends HTMLSerializer {
 				.getPartitionAtOffset(offset);
 		BasePartition endPartition = (BasePartition) curLayer
 				.getPartitionAtOffset(offset + length);
+		if (endPartition==null|| endPartition.getOffset()>=offset+length){
+			endPartition=(BasePartition) curLayer
+			.getPartitionAtOffset(offset + length-1);
+		}
 		boolean wasFontStyleMarkupTag = false;
 
 		if (!startPartition.getFontDataName().equals(
