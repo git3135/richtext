@@ -3183,4 +3183,12 @@ public class ExtendedStyledText extends StyledText implements
 			}
 		return super.getOffsetAtLine(lineIndex);
 	}
+	
+	@Override
+	public ScrollBar getVerticalBar()
+	{
+		if (isDisposed())
+			return null;
+		return super.getVerticalBar();
+	}
 }
