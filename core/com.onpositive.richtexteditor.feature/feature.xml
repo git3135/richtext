@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="com.onpositive.richtexteditor.feature"
+      label="Rich Text Editor"
+      version="1.0.0.qualifier"
+      provider-name="ONPOSITIVE">
+
+   <description url="http://www.example.com/description">
+      [Enter Feature Description here.]
+   </description>
+
+   <copyright url="http://www.example.com/copyright">
+      [Enter Copyright Description here.]
+   </copyright>
+
+   <license url="http://www.example.com/license">
+      [Enter License Description here.]
+   </license>
+
+   <requires>
+      <import plugin="com.onpositive.richtext.model" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.swt"/>
+      <import plugin="org.eclipse.jface.text"/>
+      <import plugin="org.eclipse.jface"/>
+      <import plugin="org.eclipse.equinox.common"/>
+      <import plugin="org.eclipse.osgi"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.ui.editors"/>
+      <import plugin="com.onpositive.richtexteditor" version="1.5.0" match="greaterOrEqual"/>
+      <import plugin="com.onpositive.commons.platform" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="com.onpositive.semantic.model" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="com.onpositive.semantic.ui" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="com.onpositive.richtext.wikitext.model" version="1.0.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="com.onpositive.richtext.model"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.onpositive.richtext.wikitext.model"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.onpositive.richtexteditor"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.onpositive.richtexteditor.region_provider"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+   <plugin
+         id="com.onpositive.richtexteditor.swt.extension"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         fragment="true"
+         unpack="false"/>
+
+   <plugin
+         id="com.onpositive.richtexteditor.wikitext"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
+
+</feature>
