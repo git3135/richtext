@@ -40,7 +40,7 @@ import com.onpositive.richtexteditor.wikitext.partitions.CamelCasePartition;
 import com.onpositive.richtexteditor.wikitext.regions.IWikitextRegionTypesProvider;
 import com.onpositive.richtexteditor.wikitext.regions.RegionType;
 import com.onpositive.semantic.model.binding.Binding;
-import com.onpositive.semantic.model.ui.property.IPropertyEditor;
+import com.onpositive.semantic.model.ui.generic.IPropertyEditor;
 
 public class CustomActionFactory extends ActionFactory {
 	
@@ -371,7 +371,7 @@ public class CustomActionFactory extends ActionFactory {
 										CustomActionFactory.class,
 										"tableDialog.dlf", pContext);
 						TitledDialog d = new TitledDialog(
-								(IPropertyEditor<?>) evaluateLocalPluginResource);
+								(IPropertyEditor) evaluateLocalPluginResource);
 						int open = d.open();
 						if (open == Dialog.OK) {
 							
