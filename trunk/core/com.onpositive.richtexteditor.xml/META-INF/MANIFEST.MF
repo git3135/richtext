@@ -9,11 +9,12 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  com.onpositive.richtexteditor;bundle-version="1.0.0",
  com.onpositive.semantic.model;bundle-version="1.0.0",
- com.onpositive.semantic.ui;bundle-version="1.0.0",
- com.onpositive.semantic.ui.xml;bundle-version="1.0.0",
+ com.onpositive.semantic.ui.swt;bundle-version="1.0.0",
  com.onpositive.commons.platform;bundle-version="1.0.0",
+ com.onpositive.semantic.ui.swt,
  org.eclipse.jface.text,
  org.eclipse.ui.forms,
+ org.eclipse.swt,
  com.onpositive.richtext.model;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
 Bundle-ActivationPolicy: lazy
