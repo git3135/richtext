@@ -179,12 +179,16 @@ public class DefaultLinesProvider implements ILinesProvider
 
 	protected void addLineRest(String current, int firstUnparserCharIdx)
 	{
-		String rest = current.substring(firstUnparserCharIdx);
-		if (rest.trim().length() == 0) //Ignore spaces
-			return;
-		lines.add(new WikitextLine(WikitextLine.SIMPLE,rest));
-		bullets.add(null);
-		indents.add(0);		
+		try{
+			String rest = current.substring(firstUnparserCharIdx);
+			if (rest.trim().length() == 0) //Ignore spaces
+				return;
+			lines.add(new WikitextLine(WikitextLine.SIMPLE,rest));
+			bullets.add(null);
+			indents.add(0);
+		}catch( StringIndexOutOfBoundsException e ){
+			
+		}
 	}
 
 
