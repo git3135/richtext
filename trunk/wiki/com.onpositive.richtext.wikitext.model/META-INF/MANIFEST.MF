@@ -11,4 +11,7 @@ Export-Package: com.onpositive.richtexteditor.wikitext,
  com.onpositive.richtexteditor.wikitext.io,
  com.onpositive.richtexteditor.wikitext.parser,
  com.onpositive.richtexteditor.wikitext.partitions,
- com.onpositive.richtexteditor.wikitext.regions
+ com.onpositive.richtexteditor.wikitext.regions,
+ com.onpositive.service.mediawiki.io,
+ com.onpositive.wiki.ui.table
+Import-Package: org.eclipse.jface.text
